@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Видеоконвертер{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2 class="mb-0">
+                    <i class="fas fa-video me-2"></i>Видеоконвертер
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="file" class="form-label fw-bold">
+                            <i class="fas fa-file-video me-2"></i>Выберите видеофайл
+                        </label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".mp4,.avi,.mov,.mkv,.webm" required>
+                        <div class="form-text">
+                            Поддерживаются: MP4, AVI, MOV, MKV, WEBM. Максимум 500 МБ
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="format" class="form-label fw-bold">
+                            <i class="fas fa-cog me-2"></i>Выберите формат
+                        </label>
+                        <select class="form-select" id="format" name="format" required>
+                            <option value="mp4" selected>MP4 (H.264)</option>
+                            <option value="webm">WEBM (VP9)</option>
+                            <option value="avi">AVI</option>
+                            <option value="mkv">MKV</option>
+                        </select>
+                        <div class="form-text">
+                            В какой формат конвертировать
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-upload me-2"></i>Загрузить и конвертировать
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

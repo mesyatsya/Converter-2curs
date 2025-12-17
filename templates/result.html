@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Результат - Видеоконвертер{% endblock %}
+
+{% block extra_css %}
+<style>
+    .success-icon {
+        font-size: 4rem;
+        color: #28a745;
+    }
+    .download-btn {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        border: none;
+        border-radius: 25px;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .download-btn:hover {
+        background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+    .file-info {
+        background-color: #e8f5e9;
+        border-left: 4px solid #28a745;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 20px 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2 class="mb-0">
+                    <i class="fas fa-check-circle me-2"></i>Конвертация завершена!
+                </h2>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle success-icon"></i>
+                </div>
+                
+                <h4 class="mb-3">Готово! Файл сконвертирован</h4>
+                
+                <div class="file-info text-start">
+                    <h6><i class="fas fa-file me-2"></i>Информация:</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Исходный файл:</strong> {{ task.original_filename }}</li>
+                        <li><strong>Формат:</strong> {{ task.format|upper }}</li>
+                        {% if task.video_info %}
+                            {% if task.video_info.duration %}
+                            <li><strong>Длительность:</strong> {{ "%.2f"|format(task.video_info.duration) }} сек</li>
+                            {% endif %}
+                            {% if task.video_info.width and task.video_info.height %}
+                            <li><strong>Разрешение:</strong> {{ task.video_info.width }}x{{ task.video_info.height }}</li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{{ url_for('download_file', task_id=task_id) }}" 
+                       class="btn download-btn text-white">
+                        <i class="fas fa-download me-2"></i>Скачать файл
+                    </a>
+                    
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                        <i class="fas fa-upload me-2"></i>Конвертировать еще один файл
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
